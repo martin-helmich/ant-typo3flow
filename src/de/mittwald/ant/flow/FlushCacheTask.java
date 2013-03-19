@@ -1,7 +1,5 @@
 package de.mittwald.ant.flow;
 
-import org.apache.tools.ant.BuildException;
-
 public class FlushCacheTask extends AbstractFlowTask
 {
 	private boolean force = false;
@@ -11,7 +9,8 @@ public class FlushCacheTask extends AbstractFlowTask
 		this.force = force;
 	}
 	
-	public void execute() throws BuildException
+	@Override
+	protected String getFlowCommandString()
 	{
 		String command = "flow:cache:flush";
 		
@@ -20,6 +19,6 @@ public class FlushCacheTask extends AbstractFlowTask
 			command += " --force";
 		}
 		
-		this.executeCommand(command);
+		return command;
 	}
 }

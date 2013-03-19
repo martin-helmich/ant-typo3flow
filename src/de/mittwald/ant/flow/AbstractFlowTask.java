@@ -4,13 +4,23 @@ import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
 import java.io.*;
 
-public class AbstractFlowTask extends Task
+public abstract class AbstractFlowTask extends Task
 {
-	protected void executeCommand(String command) throws BuildException
+	abstract protected String getFlowCommandString();
+
+	protected void validateAttributes() throws BuildException
 	{
+	}
+
+	public void execute() throws BuildException
+	{
+		this.validateAttributes();
+
 		try
 		{
+			String command = getFlowCommandString();
 			String line;
+
 			Process process = Runtime.getRuntime().exec("./flow " + command);
 			BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
 			BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));

@@ -1,7 +1,5 @@
 package de.mittwald.ant.flow;
 
-import org.apache.tools.ant.BuildException;
-
 public class DoctrineMigrateTask extends AbstractFlowTask
 {
 	private boolean quiet = false;
@@ -17,7 +15,8 @@ public class DoctrineMigrateTask extends AbstractFlowTask
 		this.dryRun = dryRun;
 	}
 
-	public void execute() throws BuildException
+	@Override
+	protected String getFlowCommandString()
 	{
 		String command = "doctrine:migrate";
 
@@ -31,6 +30,6 @@ public class DoctrineMigrateTask extends AbstractFlowTask
 			command += " --dryRun";
 		}
 
-		this.executeCommand(command);
+		return command;
 	}
 }
