@@ -22,8 +22,10 @@ public abstract class AbstractFlowTask extends Task
 			String line;
 
 			Process process = Runtime.getRuntime().exec("./flow " + command);
-			BufferedReader bri = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			BufferedReader bre = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			BufferedReader bri = new BufferedReader(new InputStreamReader(
+					process.getInputStream()));
+			BufferedReader bre = new BufferedReader(new InputStreamReader(
+					process.getErrorStream()));
 
 			while ((line = bri.readLine()) != null)
 			{
@@ -40,7 +42,8 @@ public abstract class AbstractFlowTask extends Task
 
 			if (process.exitValue() != 0)
 			{
-				throw new BuildException("TYPO3 Flow exited with code " + process.exitValue() + "!");
+				throw new BuildException("TYPO3 Flow exited with code "
+						+ process.exitValue() + "!");
 			}
 		}
 		catch (InterruptedException e)
@@ -49,7 +52,8 @@ public abstract class AbstractFlowTask extends Task
 		}
 		catch (IOException e)
 		{
-			throw new BuildException("TYPO3 Flow raised error '" + e.getMessage() + "'!");
+			throw new BuildException("TYPO3 Flow raised error '"
+					+ e.getMessage() + "'!");
 		}
 	}
 }

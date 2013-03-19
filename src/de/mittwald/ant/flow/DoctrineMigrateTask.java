@@ -2,8 +2,8 @@ package de.mittwald.ant.flow;
 
 public class DoctrineMigrateTask extends AbstractFlowTask
 {
-	private boolean quiet = false;
-	private boolean dryRun = false;
+	private boolean	quiet	= false;
+	private boolean	dryRun	= false;
 
 	public void setQuiet(boolean quiet)
 	{
@@ -24,7 +24,7 @@ public class DoctrineMigrateTask extends AbstractFlowTask
 		{
 			command += " --quiet";
 		}
-		
+
 		if (this.dryRun)
 		{
 			command += " --dryRun";
