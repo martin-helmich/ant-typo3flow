@@ -7,6 +7,7 @@
 	<target name="compile">
 		<mkdir dir="build/classes" />
 		<javac srcdir="src" destdir="build/classes" includeantruntime="true" />
+		<copy file="src/de/mittwald/ant/flow/tasks.properties" tofile="build/classes/de/mittwald/ant/flow/tasks.properties" />
 	</target>
 
 	<target name="jar" depends="compile">
