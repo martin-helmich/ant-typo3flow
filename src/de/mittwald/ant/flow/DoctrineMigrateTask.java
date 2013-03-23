@@ -1,5 +1,8 @@
 package de.mittwald.ant.flow;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DoctrineMigrateTask extends AbstractFlowTask
 {
 	private boolean	quiet	= false;
@@ -16,20 +19,22 @@ public class DoctrineMigrateTask extends AbstractFlowTask
 	}
 
 	@Override
-	protected String getFlowCommandString()
+	protected List<String> getFlowCommandStrings()
 	{
-		String command = "doctrine:migrate";
+		List<String> commands = new ArrayList<String>(3);
+		
+		commands.add("doctrine:migrate");
 
 		if (this.quiet)
 		{
-			command += " --quiet";
+			commands.add("--quiet");
 		}
 
 		if (this.dryRun)
 		{
-			command += " --dryRun";
+			commands.add("--dryRun");
 		}
 
-		return command;
+		return commands;
 	}
 }

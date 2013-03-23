@@ -1,5 +1,8 @@
 package de.mittwald.ant.flow;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class FlushCacheTask extends AbstractFlowTask
 {
 	private boolean	force	= false;
@@ -10,15 +13,17 @@ public class FlushCacheTask extends AbstractFlowTask
 	}
 
 	@Override
-	protected String getFlowCommandString()
+	protected List<String> getFlowCommandStrings()
 	{
-		String command = "flow:cache:flush";
+		List<String> commands = new ArrayList<String>(2);
+		
+		commands.add("flow:cache:flush");
 
 		if (this.force)
 		{
-			command += " --force";
+			commands.add("--force");
 		}
 
-		return command;
+		return commands;
 	}
 }

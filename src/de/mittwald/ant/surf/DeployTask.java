@@ -1,5 +1,8 @@
 package de.mittwald.ant.surf;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.tools.ant.BuildException;
 
 import de.mittwald.ant.flow.AbstractFlowTask;
@@ -28,11 +31,15 @@ public class DeployTask extends AbstractFlowTask
 	}
 
 	@Override
-	protected String getFlowCommandString()
+	protected List<String> getFlowCommandStrings()
 	{
-		String command = dryRun ? "typo3.surf:surf:simulate"
-				: "typo3.surf:surf:deploy";
-		return command + " --disable-ansi " + deployment;
+		List<String> commands = new ArrayList<String>();
+		
+		commands.add(dryRun ? "typo3.surf:surf:simulate" : "typo3.surf:surf:deploy");
+		commands.add("--disable-ansi");
+		commands.add(deployment);
+		
+		return commands;
 	}
 
 }

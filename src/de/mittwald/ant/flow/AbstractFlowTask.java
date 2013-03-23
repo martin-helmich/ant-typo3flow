@@ -1,13 +1,26 @@
 package de.mittwald.ant.flow;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
-import java.io.*;
 
 public abstract class AbstractFlowTask extends Task
 {
-	abstract protected String getFlowCommandString();
+	protected String	path	= "./flow";
 
+	abstract protected List<String> getFlowCommandStrings();
+
+	public void setPath(String p)
+	{
+		path = p;
+	}
+	
 	protected void validateAttributes() throws BuildException
 	{
 	}
@@ -18,10 +31,15 @@ public abstract class AbstractFlowTask extends Task
 
 		try
 		{
-			String command = getFlowCommandString();
+			List<String> command = new ArrayList<String>(10);
 			String line;
+			
+			command.add(path);
+			command.addAll(getFlowCommandStrings());
 
-			Process process = Runtime.getRuntime().exec("./flow " + command);
+			ProcessBuilder builder = new ProcessBuilder(command);
+
+			Process process = builder.start();
 			BufferedReader bri = new BufferedReader(new InputStreamReader(
 					process.getInputStream()));
 			BufferedReader bre = new BufferedReader(new InputStreamReader(
