@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <project name="flowing-ant" default="jar" basedir=".">
-    <target name="clean">
-        <delete dir="build"/>
-    </target>
+	<target name="clean">
+		<delete dir="build" />
+	</target>
 
-    <target name="compile">
-        <mkdir dir="build/classes"/>
-        <javac srcdir="src" destdir="build/classes" includeantruntime="true"/>
-    </target>
+	<target name="compile">
+		<mkdir dir="build/classes" />
+		<javac srcdir="src" destdir="build/classes" includeantruntime="true" />
+	</target>
 
-    <target name="jar" depends="compile">
-        <mkdir dir="build/jar"/>
-        <jar destfile="build/jar/ant-typo3flow.jar" basedir="build/classes"/>
-    </target>
+	<target name="jar" depends="compile">
+		<mkdir dir="build/jar" />
+		<jar destfile="build/jar/ant-typo3flow.jar" basedir="build/classes" />
+	</target>
 
 </project>
