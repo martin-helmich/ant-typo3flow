@@ -32,9 +32,25 @@ public abstract class AbstractFlowTask extends Task
 	{
 	}
 
+	protected void validateEnvironment() throws BuildException
+	{
+		File file = new File(path);
+
+		if (file.isFile() == false)
+		{
+			throw new BuildException("No " + path + " executable found!");
+		}
+		
+		if (!context.equals("Development") && !context.equals("Production"))
+		{
+			throw new BuildException("Invalid value '" + context + "' as context!");
+		}
+	}
+
 	public void execute() throws BuildException
 	{
-		this.validateAttributes();
+		validateEnvironment();
+		validateAttributes();
 
 		try
 		{
