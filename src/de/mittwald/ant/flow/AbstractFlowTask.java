@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.tools.ant.BuildException;
 import org.apache.tools.ant.Task;
@@ -13,6 +14,7 @@ import org.apache.tools.ant.Task;
 public abstract class AbstractFlowTask extends Task
 {
 	protected String	path	= "./flow";
+	protected String	context	= "Development";
 
 	abstract protected List<String> getFlowCommandStrings();
 
@@ -21,6 +23,11 @@ public abstract class AbstractFlowTask extends Task
 		path = p;
 	}
 	
+	public void setContext(String c)
+	{
+		context = c;
+	}
+
 	protected void validateAttributes() throws BuildException
 	{
 	}
@@ -38,6 +45,9 @@ public abstract class AbstractFlowTask extends Task
 			command.addAll(getFlowCommandStrings());
 
 			ProcessBuilder builder = new ProcessBuilder(command);
+			Map<String, String> environment = builder.environment();
+			
+			environment.put("FLOW_CONTEXT", context);
 
 			Process process = builder.start();
 			BufferedReader bri = new BufferedReader(new InputStreamReader(
